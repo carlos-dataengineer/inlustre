@@ -1,6 +1,6 @@
 {
   "name": "inlustre",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Quadro de desenho com traço à mão (formas, setas, lápis, texto, imagens, exportação PNG) entregue como artefato no Claude.",
   "author": { "name": "Krlos Robertt", "url": "https://github.com/carlos-dataengineer" },
   "homepage": "https://github.com/carlos-dataengineer/inlustre",

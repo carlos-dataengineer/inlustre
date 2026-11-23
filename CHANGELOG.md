@@ -4,6 +4,12 @@ Todas as mudanças relevantes deste projeto ficam aqui. O formato segue o [Keep 
 
 ## [Não lançado]
 
+## [1.0.1] - 2026-11-23
+
+### Corrigido
+
+- `install.sh` terminava com código de saída 1 mesmo depois de instalar com sucesso.
+
 ## [1.0.0] - 2026-11-23
 
 ### Adicionado
@@ -20,5 +26,6 @@ Todas as mudanças relevantes deste projeto ficam aqui. O formato segue o [Keep 
 - Plugin e marketplace do Claude Code.
 - Instalação e desinstalação em um comando para Windows, macOS e Linux.
 
-[Não lançado]: https://github.com/carlos-dataengineer/inlustre/compare/v1.0.0...HEAD
+[Não lançado]: https://github.com/carlos-dataengineer/inlustre/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/carlos-dataengineer/inlustre/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/carlos-dataengineer/inlustre/releases/tag/v1.0.0

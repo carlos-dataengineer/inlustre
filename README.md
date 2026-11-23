@@ -8,7 +8,7 @@ Formas, setas, lápis, texto e imagens em um único arquivo HTML. Instale com um
 
 [![CI](https://github.com/carlos-dataengineer/inlustre/actions/workflows/ci.yml/badge.svg)](https://github.com/carlos-dataengineer/inlustre/actions/workflows/ci.yml)
 [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-0d7a78.svg)](LICENSE)
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.0-0d7a78.svg)](CHANGELOG.md)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0.1-0d7a78.svg)](CHANGELOG.md)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-skill%20%2B%20plugin-1c2230.svg)
 ![Codex](https://img.shields.io/badge/Codex-skill-1c2230.svg)
 ![Sem dependências](https://img.shields.io/badge/depend%C3%AAncias-nenhuma-1c2230.svg)

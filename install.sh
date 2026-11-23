@@ -36,7 +36,7 @@ printf '\n  Inlustre · quadro de desenho com traço à mão\n\n'
 
 # 1. Origem dos arquivos
 TMP=""
-cleanup() { [ -n "$TMP" ] && rm -rf "$TMP"; }
+cleanup() { if [ -n "$TMP" ]; then rm -rf "$TMP"; fi; }
 trap cleanup EXIT
 
 SCRIPT_DIR=""
