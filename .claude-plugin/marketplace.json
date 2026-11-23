@@ -1,0 +1,14 @@
+{
+  "name": "inlustre",
+  "owner": { "name": "Krlos Robertt", "url": "https://github.com/carlos-dataengineer" },
+  "metadata": { "description": "Marketplace do Inlustre, quadro de desenho com traço à mão." },
+  "plugins": [
+    {
+      "name": "inlustre",
+      "source": "./",
+      "description": "Quadro de desenho com traço à mão entregue como artefato no Claude.",
+      "version": "1.0.0",
+      "license": "MIT"
+    }
+  ]
+}

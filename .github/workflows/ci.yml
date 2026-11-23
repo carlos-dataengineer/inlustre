@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    name: Validar repositório
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Arquivos gerados em dia
+        run: python scripts/build.py --check
+      - name: Skill, plugin, instaladores e README
+        run: python tests/validate_repo.py
+      - name: Sintaxe dos scripts bash
+        run: bash -n install.sh && bash -n uninstall.sh
+      - name: ShellCheck
+        run: shellcheck --severity=warning install.sh uninstall.sh
+
+  fumaca:
+    name: Teste de fumaça no navegador
+    runs-on: ubuntu-latest
+    needs: validar
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar Playwright
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Rodar o teste
+        run: python tests/test_smoke.py
+
+  instalar-unix:
+    name: Instalação (${{ matrix.os }})
+    needs: validar
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar a partir do clone
+        run: bash install.sh --no-open
+      - name: Conferir arquivos
+        run: |
+          test -f "$HOME/.claude/skills/inlustre/SKILL.md"
+          test -f "$HOME/.codex/skills/inlustre/assets/inlustre.html"
+          test -f "$HOME/.agents/skills/inlustre/references/FORMATO-QUADRO.md"
+          test -f "$HOME/Inlustre/inlustre.html"
+      - name: Reinstalar (idempotente)
+        run: bash install.sh --no-open
+      - name: Desinstalar
+        run: |
+          bash uninstall.sh --all
+          test ! -e "$HOME/.claude/skills/inlustre"
+          test ! -e "$HOME/Inlustre/inlustre.html"
+
+  instalar-windows:
+    name: Instalação (Windows PowerShell 5.1)
+    needs: validar
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar a partir do clone
+        shell: powershell
+        run: .\install.ps1 -NoOpen
+      - name: Instalar como "irm | iex" (texto do script)
+        shell: powershell
+        run: |
+          $env:INLUSTRE_NO_OPEN = '1'
+          Get-Content .\install.ps1 -Raw | Invoke-Expression
+      - name: Conferir arquivos
+        shell: powershell
+        run: |
+          foreach ($p in "$HOME\.claude\skills\inlustre\SKILL.md", "$HOME\.codex\skills\inlustre\SKILL.md", "$HOME\Inlustre\inlustre.html") {
+            if (-not (Test-Path $p)) { throw "faltando: $p" }
+          }
+      - name: Desinstalar
+        shell: powershell
+        run: |
+          .\uninstall.ps1 -All
+          if (Test-Path "$HOME\.claude\skills\inlustre") { throw 'skill nao removida' }
